@@ -69,7 +69,7 @@ public class SortMethods {
 
   /**
    * 选择排序<br/>
-   * <li>在未排序序列中找到最小元素，存放到排序序列的起始位置</li>
+   * <li>在未排序序列中找到最小元素，存放到排序序列的起始位置 </li>
    * <li>再从剩余未排序元素中继续寻找最小元素，然后放到排序序列末尾。</li>
    * <li>以此类推，直到所有元素均排序完毕。</li>
 
@@ -168,5 +168,44 @@ public class SortMethods {
       B[k++] = data[s++];
     for (int i = p; i <= r; i++)
       data[i] = B[i];
+  }
+
+  public static void createLittleHeap(int[] data, int last) {
+    for (int i = (last- 1) / 2; i >= 0; i--) {  //找到最后一个叶子节点的双亲节点
+      // 保存当前正在判断的节点
+      int parent = i;
+      // 若当前节点的左子节点存在，即子节点存在
+      while (2 * parent + 1 <= last) {
+        // biggerIndex总是记录较大节点的值,先赋值为当前判断节点的左子节点
+        int bigger = 2 * parent + 1;//bigger指向左子节点
+        if (bigger < last) { //说明存在右子节点
+
+          if (data[bigger] > data[bigger+ 1]) { //右子节点>左子节点时
+
+            bigger=bigger+1;
+          }
+        }
+        if (data[parent] > data[bigger]) {  //若双亲节点值大于子节点中最大的
+          // 若当前节点值比子节点最大值小，则交换2者得值，交换后将biggerIndex值赋值给k
+          swap(data, parent, bigger);
+          parent = bigger;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+  public static void print(int a[]){
+    for(int i=0;i<a.length;i++){
+      System.out.print(a[i]+" ");
+    }
+  }
+  public  static void swap(int[] data, int i, int j) {
+    if (i == j) {
+      return;
+    }
+    data[i] = data[i] + data[j];
+    data[j] = data[i] - data[j];
+    data[i] = data[i] - data[j];
   }
 }
